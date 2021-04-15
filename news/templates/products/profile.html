@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} {{title}} {%endblock%}
+
+
+{% block content %}
+<div class="container" style="max-width: 575.98px;" >
+   
+
+   {%if customer.customer.order_set.all%}
+<h5>Заказы: <b> {{request.user.username}}</b>
+</h5>
+{%for order in customer.customer.order_set.all%}
+_____________________________________ <br>
+<b>Order ID</b> : {{order.id}} <br>
+first_name: {{order.first_name}}<br>
+last_name: {{order.last_name}}<br>
+
+final_price: {{order.final_price}} $<br>
+status:  {{order.status }} <br>
+address:  {{order.adress}} <br>
+_____________________________________ <br>
+
+{%endfor%}
+{%else%}
+<strong>you don`t have  orders</strong>
+{%endif%}
+</div>
+{% endblock %}

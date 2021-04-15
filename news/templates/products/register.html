@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+
+{% block title %} {{title}} {%endblock%}
+
+{%block sidebar%}
+
+ {% include 'inc/_sidebar.html'%}
+
+{%endblock%}
+
+{%block content%}
+<h1>Регистрация</h1>
+
+<form  method="POST">
+    {%csrf_token%}
+
+    {{ form|crispy }}
+
+<button type="submit" class="btn btn-primary btn-block">Регистрация</button>
+
+</form>
+
+
+
+{%endblock%}
+
+
+
+
+
+
+

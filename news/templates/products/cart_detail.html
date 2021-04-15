@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load cart_tag %}
+
+
+{% block title %} Корзина {%endblock%}
+
+{%block content%}
+{%if request.session.cart.items%}
+
+{% for key,value in request.session.cart.items %}
+
+ <div class="row">
+    <div class="col-lg-3 col-sm-3 col-xs-12" style="height: 100px; line-height: 100px;">
+    <img  src="{{value.image}}" style="width: 80px; height: 80px;  " />
+    </div>
+    <div  class="col-lg-3 col-sm-3 col-xs-12 mob-fix" style="height: 100px; line-height: 100px;">
+        {{value.name}} 
+    </div>
+    <div class="col-lg-2 col-sm-2 col-xs-12 mob-fix" style="height: 100px; line-height: 100px;">
+      {{ value.price|multiply:value.quantity }}
+    </div>
+    <div class="col-lg-1 col-sm-2 col-xs-12 mob-fix" style="height: 100px; line-height: 100px;">
+        <p>{{value.quantity}}
+            {%if value.quantity > 1%}
+            <a href="{% url 'item_decrement' value.product_id %}">-</a>
+            <a href="{% url 'item_increment' value.product_id %}">+</a></p>
+            {%else%}
+            <a href="{% url 'item_increment' value.product_id %}">+</a></p>
+            {%endif%}
+    </div>
+    <div class="col-lg-3 col-sm-2 col-xs-12 mob-fix" style="height: 100px; line-height: 100px;">
+      <a href="{% url 'item_clear' value.product_id %}"></i>Удалить </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div class="col-md-1 col-sm-1 col-1 col-lg-1">
+      </div>
+    
+    
+  </div>
+  {% endfor %}
+  <div class="col-md-11 col-sm-11 col-11 col-lg-11">
+    <div class="row">
+      <div class="col-md-10 col-sm-10">  Всего {{cart_total_amount}} $</div>
+      <div class="col-md-2 col-sm-2"><a href="/checkout"><button type="button" class="btn btn-outline-success">Оформить</button></a>
+      </div>
+    </div>
+  </div>
+
+{%else%}
+
+<h2>КОрзина пуста</h2>
+{%endif%}
+
+{%endblock%}
+
+
+
+
+
+
+
